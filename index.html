@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<style>
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: rgb(19, 19, 82);
+  font-family: sans-serif;
+}
+.clock {
+  width: 350px;
+  height: 350px;
+  box-shadow: -5px -5px 15px rgb(23, 23, 104), 5px 5px 15px rgb(14, 14, 67),
+    inset 5px 5px 15px rgb(14, 14, 67), inset -5px -5px 15px rgb(23, 23, 104);
+  border-radius: 50%;
+  position: relative;
+}
+.number {
+  height: 15px;
+  width: 5px;
+  display: inline-block;
+  background: white;
+  border-radius: 0.5rem;
+  position: absolute;
+}
+.clock .twelve {
+  left: 50%;
+  top: 5px;
+  transform: translateX(-50%);
+}
+.clock .three {
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) rotate(90deg);
+}
+.clock .six {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 5px;
+}
+.clock .nine {
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%) rotate(90deg);
+}
+.clock::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: rgb(10, 90, 210);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 99;
+}
+.hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  border-radius: 0.5rem;
+  transform-origin: bottom;
+  transform: translate(-50%);
+}
+.hand.hr {
+  width: 8px;
+  height: 20%;
+  background: white;
+}
+.hand.min {
+  width: 5px;
+  height: 30%;
+  background: rgb(221, 207, 15);
+}
+.hand.sec {
+  width: 3px;
+  height: 40%;
+  background: rgb(201, 18, 180);
+}
+.digital {
+  margin-top: 3rem;
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
+}
+</style>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Js Clock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <div class="clock">
+      <div class="hand hr"></div>
+      <div class="hand min"></div>
+      <div class="hand sec"></div>
+      <span class="number twelve"></span><span class="number three"></span
+      ><span class="number six"></span><span class="number nine"></span>
+    </div>
+    <div class="digital">
+      <span class="d-hr"></span> : <span class="d-min"></span> :
+      <span class="d-sec"></span>
+    </div>
+  </body>
+  <script>
+  const secondHand = document.querySelector(".sec");
+const minHand = document.querySelector(".min");
+const hrHand = document.querySelector(".hr");
+
+const dHr = document.querySelector(".d-hr");
+const dMin = document.querySelector(".d-min");
+const dSec = document.querySelector(".d-sec");
+
+const setTime = () => {
+  const currentDate = new Date();
+
+  // seconds
+  const seconds = currentDate.getSeconds();
+  const secondDegs = (seconds / 60) * 360;
+  secondHand.style.transform = `translate(-50%) rotate(${secondDegs}deg)`;
+  // mins
+  const mins = currentDate.getMinutes();
+  const minDegs = (mins / 60) * 360;
+  minHand.style.transform = `translate(-50%) rotate(${minDegs}deg)`;
+
+  // hours
+  const hour = currentDate.getHours();
+  const hourDegs = (hour / 12) * 360;
+  hrHand.style.transform = `translate(-50%) rotate(${hourDegs}deg)`;
+
+  //   digital
+  dHr.innerHTML = hour;
+  dMin.innerHTML = mins;
+  dSec.innerHTML = seconds;
+};
+
+setInterval(setTime, 1000);
+
+setTime();
+  </script>
+  
+  
+  
+  
+  
+</html>
